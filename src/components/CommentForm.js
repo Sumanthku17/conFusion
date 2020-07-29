@@ -2,6 +2,9 @@ import  React,{ Component } from 'react';
 import {Control,LocalForm,Errors} from 'react-redux-form';
 import { Button, Modal,ModalBody,ModalHeader,Label,Row } from 'reactstrap';
 
+const maxlength = (len) => (val) =>!(val) || (val.length <= len);
+const minlength = (len) => (val) =>(val) && (val.length >= len);
+
 class Comment extends Component{
     constructor(props){
         super(props);
@@ -22,8 +25,11 @@ class Comment extends Component{
     }  
     render(){
         return(
+            <>
             <div className="row">
-            <Button className="fa fa-pencil btn btn-outline-secondary" onClick={this.toggleModal}>Submit Comment</Button>
+            <Button className="fa fa-pencil btn btn-outline-secondary col-12" onClick={this.toggleModal}>Submit Comment</Button>
+            </div>
+             <div className="row">
              <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                 <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                 <ModalBody>
@@ -40,17 +46,30 @@ class Comment extends Component{
                         </Row>
                          <Row className="form-group mx-auto">
                             <Label htmlFor="name">Your Name</Label>
-                            <Control.text model=".name" className="form-control" placeholder="Your Name"/>
+                            <Control.text model=".name" className="form-control" placeholder="Your Name" validators={{
+                                        minlength:minlength(3),
+                                        maxlength:maxlength(15)
+                                    }}/>
+                            <Errors
+                                        className="text-danger"
+                                        model=".name"
+                                        show="touched"
+                                        messages={{
+                                                  minlength: 'Must be greater than 2 characters',
+                                                  maxlength:'Must be 15 characters or less'
+                                                 }}/>
                         </Row>
                         <Row className="form-group mx-auto">
                             <Label htmlFor="comment">Comment</Label>
                             <Control.textarea model=".comment" className="form-control" rows="6" />
                         </Row>
-                        <Button type="submit" value="submit" colour="primary">Submit</Button>
+                        <Button color="primary" type="submit">Submit</Button>
                     </LocalForm>
                 </ModalBody>
             </Modal>
+
             </div>
+            </>
         );
     }
     
