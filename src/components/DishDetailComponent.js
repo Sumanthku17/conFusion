@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardImg,  CardBody, CardText, CardTitle, Breadcrumb, BreadcrumbItem,Button } from 'reactstrap';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import Comment from './CommentForm';
+import CommentForm from './CommentForm';
     function RenderDish({dish}) {
         if (dish!=null){
             return(
@@ -23,7 +23,7 @@ import Comment from './CommentForm';
         }
     }
 
-    function RenderComments({comments}) {
+    function RenderComments({comments,addComment,dishId}) {
         if(comments != null) {
             return (
                 <div className="col-12 col-md-5 m-1">
@@ -37,7 +37,7 @@ import Comment from './CommentForm';
                             </ul>
                         )
                     )}
-                    <Comment/>
+                    <CommentForm dishId={dishId} addComment={addComment}/>
                 
                 </div>);
         } else {
@@ -62,7 +62,7 @@ import Comment from './CommentForm';
                 </div>
                <div className="row">
                 <RenderDish dish={props.dish}/>
-                <RenderComments comments={props.comments} />
+                <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
                 </div>
             </div>
         );
