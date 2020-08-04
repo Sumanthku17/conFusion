@@ -8,7 +8,7 @@ import About from './AboutComponent';
 import DishDetail from './DishDetailComponent.js';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { postComment,fetchDishes,fetchComments,fetchPromos,fetchLeaders } from '../redux/ActionCreators';
+import { postComment,fetchDishes,fetchComments,fetchPromos,fetchLeaders,postFeedback } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import {TransitionGroup,CSSTransition} from 'react-transition-group';
 //state from redux
@@ -27,7 +27,9 @@ const mapDispacthToProps = (dispatch) => ({
     fetchComments: () => {dispatch(fetchComments())},
     fetchPromos: () => {dispatch(fetchPromos())},
     resetFeedbackForm: () => {dispatch(actions.reset('feedback'))},
-    fetchLeaders: () => {dispatch(fetchLeaders())}
+    fetchLeaders: () => {dispatch(fetchLeaders())},
+    postFeedback: (firstname,lastname,telnum,email,agree,contactType,message)=>
+    dispatch(postFeedback(firstname,lastname,telnum,email,agree,contactType,message))
 });
    
 class Main extends Component {
