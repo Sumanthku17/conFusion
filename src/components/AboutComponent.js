@@ -7,17 +7,19 @@ import { Fade, Stagger } from 'react-animation-components';
 
 function RenderLeader({leader}) {
         return(
-            <Media className = 'mt-4'>
-                <Media left className = 'mr-5'>
-                    <Media object src = {baseUrl + leader.image} alt = {leader.name} />
-                </Media>
-                <Media body>
-                    <Media heading>
-                        <p>{leader.name}<br/> <small>{leader.designation}</small></p>
+            <Fade in>
+                <Media className = 'mt-4'>
+                    <Media left className = 'mr-5'>
+                        <Media object src = {baseUrl + leader.image} alt = {leader.name} />
                     </Media>
-                        <p>{leader.description}</p>
+                    <Media body>
+                        <Media heading>
+                            <p>{leader.name}<br/> <small>{leader.designation}</small></p>
+                        </Media>
+                            <p>{leader.description}</p>
+                    </Media>
                 </Media>
-            </Media>
+            </Fade>
         );
 }
 
@@ -45,7 +47,9 @@ function About({leaders,leadersLoading,leaderserrMess}) {
 
         const lead = leaders.map((leader) => {
             return (
-                <RenderLeader leader = {leader}  />
+                <Stagger in>
+                    <RenderLeader leader = {leader}  />
+                </Stagger>
             );
         });
             return(

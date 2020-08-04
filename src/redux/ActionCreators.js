@@ -1,3 +1,4 @@
+  
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl'
 
@@ -21,7 +22,6 @@ export const postFeedback = (firstname,lastname,telnum,email,agree,contactType,m
         contactType: contactType,
         message:message,
     }
-    newFeedback.date = new Date().toISOString();
     
     return fetch(baseUrl+ 'feedback',{
         method:'POST',
@@ -46,7 +46,7 @@ export const postFeedback = (firstname,lastname,telnum,email,agree,contactType,m
             throw errmess;
       })
       .then(response => response.json())
-      .then(response => {dispatch(addFeedback(response)); alert("Current State is: "+JSON.stringify(response))})
+      .then(response => {dispatch(addFeedback(response)); alert("Thank you for your feedback!\n "+JSON.stringify(response))})
       .catch(error => {console.log('Post Feedback', error.message)
         alert('Your feedback could not be processed\nError: '+ error.message)})
     
