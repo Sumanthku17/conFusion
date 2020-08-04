@@ -1,18 +1,16 @@
 import React from 'react';
-import { Card, CardImg,  CardBody, CardText, CardTitle, Breadcrumb, BreadcrumbItem,Button } from 'reactstrap';
+import { Card, CardImg,  CardBody, CardText, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import {Loading} from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
-
-
     function RenderDish({dish}) {
-        if (dish!=null){
+         if(dish!=null){
             return(
                 <div key={dish.id} className="col-12 col-md-5 m-1">
                     <Card>
-                        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                        <CardImg width="100%" src={baseUrl+dish.image} alt={dish.name} />
                         <CardBody>
                             <CardTitle><strong>{dish.name}</strong></CardTitle>
                             <CardText>{dish.description}</CardText>
@@ -54,23 +52,23 @@ import { baseUrl } from '../shared/baseUrl';
         console.log('DishDetail Component render is invoked!')
         if(props.isLoading){
             return(
-                <div className="container">  
+                <div className="container">
                     <div className="row">
-                        <Loading/>
+                        <Loading />
                     </div>
                 </div>
             );
         }
         else if(props.errMess){
             return(
-                <div className="container">  
+                <div className="container">
                     <div className="row">
                         <h4>{props.errMess}</h4>
                     </div>
                 </div>
             );
         }
-        else if(props.dish != null)
+        else{
             return(
                 <div className="container">
                     <div className="row">
@@ -83,12 +81,13 @@ import { baseUrl } from '../shared/baseUrl';
                         <hr />
                     </div>
                     </div>
-                <div className="row">
+                   <div className="row">
                     <RenderDish dish={props.dish}/>
                     <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
                     </div>
                 </div>
             );
+        }
     }
 
 export default DishDetail;
